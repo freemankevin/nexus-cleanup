@@ -1,0 +1,30 @@
+services:
+  nexus-cleanup:
+    image: ghcr.io/freemankevin/nexus-cleanup:latest
+    container_name: nexus-cleanup
+    environment:
+      # Nexus connection (required)
+      NEXUS_URL: "http://nexus:8081"
+      NEXUS_USER: "admin"
+      NEXUS_PASS: "admin123"
+      # Cleanup settings
+      REPOSITORY_NAME: "maven-snapshots"
+      RETAIN_COUNT: "3"
+      DRY_RUN: "false"
+      LOG_LEVEL: "INFO"
+      SCHEDULE_TIME: "03:00"
+      # Optional retry settings
+      MAX_RETRIES: "3"
+      RETRY_DELAY: "5"
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - ./nexus-cleanup-logs:/var/log
+    ports:
+      - "8000:8000"
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
