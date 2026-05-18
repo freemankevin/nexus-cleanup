@@ -43,11 +43,7 @@ docker run -d \
 | `DELETE_WORKERS` | 并发删除线程数 | `5` |
 | `LOG_LEVEL` | 日志级别 | `INFO` |
 
-## 镜像
 
-- **Registry**: `ghcr.io/freemankevin/nexus-cleanup`
-- **Tags**: `latest`、`sha-<commit>`、`v*`
-- **Platforms**: `linux/amd64`、`linux/arm64`
 
 ## 健康检查
 
